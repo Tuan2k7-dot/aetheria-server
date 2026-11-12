@@ -554,7 +554,7 @@ html,body{min-height:100%;margin:0;background:#04102b;overflow-x:hidden}
       <section id="v14-auth-card" class="v14-card">
         <div class="v14-card-title"><span id="v14-auth-title">ĐĂNG NHẬP</span><span>✦</span></div>
         <form id="v14-auth-form" novalidate>
-          <input id="v14-username" class="v14-field" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="20" placeholder="Tên tài khoản (3–20 ký tự)" required>
+          <input id="v14-username" class="v14-field" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="120" placeholder="Email hoặc tên tài khoản" required>
           <input id="v14-password" class="v14-field" type="password" autocomplete="current-password" placeholder="Mật khẩu (ít nhất 6 ký tự)" required>
           <div id="v14-register-extra" class="v14-hidden">
             <input id="v14-confirm" class="v14-field" type="password" autocomplete="new-password" placeholder="Nhập lại mật khẩu">
@@ -7032,7 +7032,8 @@ html,body{min-height:100%;margin:0;background:#04102b;overflow-x:hidden}
       const username=(typeof rawUsername.normalize==='function'?rawUsername.normalize('NFKC'):rawUsername).trim();
       const password=String(($('v14-password') && $('v14-password').value) || '');
       const key=username.toLocaleLowerCase('vi-VN');
-      if(!/^[\p{L}\p{N}_-]{3,20}$/u.test(username)){setAuthMessage('Tên tài khoản cần 3–20 ký tự (chữ, số, _ hoặc -).');return false;}
+const isEmail=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(username)&&username.length<=120;
+if(!isEmail&&!/^[\p{L}\p{N}_-]{3,20}$/u.test(username)){setAuthMessage('Nhập email hợp lệ (tối đa 120 ký tự) hoặc tên tài khoản 3–20 ký tự.');return false;}
       if(password.length<6){setAuthMessage('Mật khẩu cần tối thiểu 6 ký tự.');return false;}
       if(authMode==='register'){
         const confirm=$('v14-confirm').value;
